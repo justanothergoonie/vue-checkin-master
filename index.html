@@ -14,23 +14,34 @@
 			<h1>Welcome to AcronymCon!</h1>
 			<ul>
 				<li v-for="who in arrived">
-					<img
-						src="https://www.gravatar.com/avatar/{{who.hashEmail}}"
-						alt=""
-					/>
+					<img :src="who.hashEmail" alt="a unique avatar" />
 					<h3>{{who.name}}</h3>
-					<span>{{who.email}} </span>
+					<p>{{who.email}}</p>
 
-					<p><span>{{who.time}}</span>minute<span>(s)</span> ago</p>
+					<p>
+						{{who.timeElapsed}} minute<span
+							v-if="who.timeElapsed != 1"
+							>s
+						</span>
+						ago
+					</p>
 				</li>
 			</ul>
 			<h2>Check in</h2>
 			<input
+				ref="nameField"
+				aria-required="true"
+				required
 				placeholder="name"
 				v-model="newArrival.name"
 				@keyup.enter="addPerson"
 			/>
+			<label for="email"></label>
 			<input
+				id="email"
+				aria-required="true"
+				required
+				type="email"
 				placeholder="email"
 				v-model="newArrival.email"
 				@keyup.enter="addPerson"
